@@ -1,9 +1,5 @@
-import 'dart:ffi';
-import 'dart:typed_data';
-
 import 'package:test/test.dart';
 import 'package:zenoh/zenoh.dart';
-import 'package:zenoh_counter_dart/counter_args.dart';
 import 'package:zenoh_counter_dart/counter_codec.dart';
 import 'package:zenoh_counter_dart/counter_pub.dart' as pub;
 import 'package:zenoh_counter_dart/counter_sub.dart' as sub;

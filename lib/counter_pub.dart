@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:zenoh/zenoh.dart';
 
-import 'counter_codec.dart';
 
 /// Handle returned by [startPublisher] to control the publish loop.
 class PublisherHandle {
