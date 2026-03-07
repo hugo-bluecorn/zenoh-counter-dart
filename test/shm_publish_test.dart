@@ -12,16 +12,16 @@ void main() {
     late ShmProvider provider;
 
     setUpAll(() async {
-      final config1 = Config();
-      config1.insertJson5('listen/endpoints', '["tcp/127.0.0.1:17460"]');
-      config1.insertJson5('scouting/multicast/enabled', 'false');
+      final config1 = Config()
+        ..insertJson5('listen/endpoints', '["tcp/127.0.0.1:17460"]')
+        ..insertJson5('scouting/multicast/enabled', 'false');
       session1 = Session.open(config: config1);
 
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      final config2 = Config();
-      config2.insertJson5('connect/endpoints', '["tcp/127.0.0.1:17460"]');
-      config2.insertJson5('scouting/multicast/enabled', 'false');
+      final config2 = Config()
+        ..insertJson5('connect/endpoints', '["tcp/127.0.0.1:17460"]')
+        ..insertJson5('scouting/multicast/enabled', 'false');
       session2 = Session.open(config: config2);
 
       await Future<void>.delayed(const Duration(seconds: 1));
@@ -102,9 +102,10 @@ void main() {
       final provider = ShmProvider(size: 4096);
       addTearDown(provider.close);
 
-      // Use alloc() (not allocGcDefragBlocking) because the blocking variant
-      // may block indefinitely when size exceeds pool capacity. The non-blocking
-      // alloc() returns null immediately on failure.
+      // Use alloc() (not allocGcDefragBlocking) because the
+      // blocking variant may block indefinitely when size
+      // exceeds pool capacity. The non-blocking alloc()
+      // returns null immediately on failure.
       final buf = provider.alloc(8192);
       expect(buf, isNull);
     });
@@ -116,16 +117,16 @@ void main() {
     late ShmProvider provider;
 
     setUpAll(() async {
-      final config1 = Config();
-      config1.insertJson5('listen/endpoints', '["tcp/127.0.0.1:17465"]');
-      config1.insertJson5('scouting/multicast/enabled', 'false');
+      final config1 = Config()
+        ..insertJson5('listen/endpoints', '["tcp/127.0.0.1:17465"]')
+        ..insertJson5('scouting/multicast/enabled', 'false');
       session1 = Session.open(config: config1);
 
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      final config2 = Config();
-      config2.insertJson5('connect/endpoints', '["tcp/127.0.0.1:17465"]');
-      config2.insertJson5('scouting/multicast/enabled', 'false');
+      final config2 = Config()
+        ..insertJson5('connect/endpoints', '["tcp/127.0.0.1:17465"]')
+        ..insertJson5('scouting/multicast/enabled', 'false');
       session2 = Session.open(config: config2);
 
       await Future<void>.delayed(const Duration(seconds: 1));

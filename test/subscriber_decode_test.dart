@@ -8,16 +8,16 @@ void main() {
     late Session session2;
 
     setUpAll(() async {
-      final config1 = Config();
-      config1.insertJson5('listen/endpoints', '["tcp/127.0.0.1:17461"]');
-      config1.insertJson5('scouting/multicast/enabled', 'false');
+      final config1 = Config()
+        ..insertJson5('listen/endpoints', '["tcp/127.0.0.1:17461"]')
+        ..insertJson5('scouting/multicast/enabled', 'false');
       session1 = Session.open(config: config1);
 
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
-      final config2 = Config();
-      config2.insertJson5('connect/endpoints', '["tcp/127.0.0.1:17461"]');
-      config2.insertJson5('scouting/multicast/enabled', 'false');
+      final config2 = Config()
+        ..insertJson5('connect/endpoints', '["tcp/127.0.0.1:17461"]')
+        ..insertJson5('scouting/multicast/enabled', 'false');
       session2 = Session.open(config: config2);
 
       await Future<void>.delayed(const Duration(seconds: 1));
