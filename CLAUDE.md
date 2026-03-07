@@ -38,7 +38,7 @@ This project depends on the `zenoh` package from the zenoh-dart monorepo:
 dependencies:
   zenoh:
     git:
-      url: https://github.com/hugo-bluecorn/zenoh-dart.git
+      url: https://github.com/hugo-bluecorn/zenoh_dart.git
       path: packages/zenoh
 ```
 
