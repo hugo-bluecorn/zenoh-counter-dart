@@ -21,9 +21,12 @@ void main() {
     });
 
     test('parses multiple -e connect endpoints', () {
-      final result = parseCommonArgs(
-        ['-e', 'tcp/host1:7447', '-e', 'tcp/host2:7447'],
-      );
+      final result = parseCommonArgs([
+        '-e',
+        'tcp/host1:7447',
+        '-e',
+        'tcp/host2:7447',
+      ]);
       expect(
         result.connectEndpoints,
         equals(['tcp/host1:7447', 'tcp/host2:7447']),
@@ -31,9 +34,12 @@ void main() {
     });
 
     test('parses multiple -l listen endpoints', () {
-      final result = parseCommonArgs(
-        ['-l', 'tcp/0.0.0.0:7447', '-l', 'tcp/0.0.0.0:7448'],
-      );
+      final result = parseCommonArgs([
+        '-l',
+        'tcp/0.0.0.0:7447',
+        '-l',
+        'tcp/0.0.0.0:7448',
+      ]);
       expect(
         result.listenEndpoints,
         equals(['tcp/0.0.0.0:7447', 'tcp/0.0.0.0:7448']),

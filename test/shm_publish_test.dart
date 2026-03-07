@@ -35,34 +35,36 @@ void main() {
       session1.close();
     });
 
-    test('SHM-published int64 received by subscriber with correct value',
-        () async {
-      final subscriber = session2.declareSubscriber('test/counter/shm');
-      addTearDown(subscriber.close);
-      final publisher = session1.declarePublisher('test/counter/shm');
-      addTearDown(publisher.close);
+    test(
+      'SHM-published int64 received by subscriber with correct value',
+      () async {
+        final subscriber = session2.declareSubscriber('test/counter/shm');
+        addTearDown(subscriber.close);
+        final publisher = session1.declarePublisher('test/counter/shm');
+        addTearDown(publisher.close);
 
-      await Future<void>.delayed(const Duration(seconds: 1));
+        await Future<void>.delayed(const Duration(seconds: 1));
 
-      final buf = provider.allocGcDefragBlocking(8);
-      expect(buf, isNotNull);
+        final buf = provider.allocGcDefragBlocking(8);
+        expect(buf, isNotNull);
 
-      // Write int64 value 42 as little-endian into buffer
-      buf!.data.asTypedList(buf.length).buffer.asByteData().setInt64(
-            0,
-            42,
-            Endian.little,
-          );
-      final zbytes = buf.toBytes();
-      publisher.putBytes(zbytes);
+        // Write int64 value 42 as little-endian into buffer
+        buf!.data
+            .asTypedList(buf.length)
+            .buffer
+            .asByteData()
+            .setInt64(0, 42, Endian.little);
+        final zbytes = buf.toBytes();
+        publisher.putBytes(zbytes);
 
-      final sample = await subscriber.stream.first.timeout(
-        const Duration(seconds: 5),
-      );
+        final sample = await subscriber.stream.first.timeout(
+          const Duration(seconds: 5),
+        );
 
-      expect(sample.payloadBytes, hasLength(8));
-      expect(decodeCounter(sample.payloadBytes), equals(42));
-    });
+        expect(sample.payloadBytes, hasLength(8));
+        expect(decodeCounter(sample.payloadBytes), equals(42));
+      },
+    );
 
     test('Multiple SHM-published int64 values received in order', () async {
       final subscriber = session2.declareSubscriber('test/counter/shm-multi');
@@ -75,11 +77,11 @@ void main() {
       for (final value in [0, 1, 2]) {
         final buf = provider.allocGcDefragBlocking(8);
         expect(buf, isNotNull, reason: 'SHM alloc failed for value $value');
-        buf!.data.asTypedList(buf.length).buffer.asByteData().setInt64(
-              0,
-              value,
-              Endian.little,
-            );
+        buf!.data
+            .asTypedList(buf.length)
+            .buffer
+            .asByteData()
+            .setInt64(0, value, Endian.little);
         final zbytes = buf.toBytes();
         publisher.putBytes(zbytes);
       }
@@ -147,11 +149,11 @@ void main() {
 
       final buf = provider.allocGcDefragBlocking(8);
       expect(buf, isNotNull);
-      buf!.data.asTypedList(buf.length).buffer.asByteData().setInt64(
-            0,
-            0,
-            Endian.little,
-          );
+      buf!.data
+          .asTypedList(buf.length)
+          .buffer
+          .asByteData()
+          .setInt64(0, 0, Endian.little);
       final zbytes = buf.toBytes();
       publisher.putBytes(zbytes);
 

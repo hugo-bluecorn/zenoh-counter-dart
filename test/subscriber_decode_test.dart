@@ -29,11 +29,9 @@ void main() {
     });
 
     test('Subscriber decodes int64 from putBytes with raw ZBytes', () async {
-      final subscriber =
-          session2.declareSubscriber('test/counter/decode');
+      final subscriber = session2.declareSubscriber('test/counter/decode');
       addTearDown(subscriber.close);
-      final publisher =
-          session1.declarePublisher('test/counter/decode');
+      final publisher = session1.declarePublisher('test/counter/decode');
       addTearDown(publisher.close);
 
       await Future<void>.delayed(const Duration(seconds: 1));
@@ -49,11 +47,9 @@ void main() {
     });
 
     test('Subscriber decodes sequential counter values', () async {
-      final subscriber =
-          session2.declareSubscriber('test/counter/decode-seq');
+      final subscriber = session2.declareSubscriber('test/counter/decode-seq');
       addTearDown(subscriber.close);
-      final publisher =
-          session1.declarePublisher('test/counter/decode-seq');
+      final publisher = session1.declarePublisher('test/counter/decode-seq');
       addTearDown(publisher.close);
 
       await Future<void>.delayed(const Duration(seconds: 1));
@@ -69,17 +65,14 @@ void main() {
           .toList();
 
       expect(samples, hasLength(3));
-      final values =
-          samples.map((s) => decodeCounter(s.payloadBytes)).toList();
+      final values = samples.map((s) => decodeCounter(s.payloadBytes)).toList();
       expect(values, equals([10, 20, 30]));
     });
 
     test('Subscriber receives on custom key expression', () async {
-      final subscriber =
-          session2.declareSubscriber('my/custom/key');
+      final subscriber = session2.declareSubscriber('my/custom/key');
       addTearDown(subscriber.close);
-      final publisher =
-          session1.declarePublisher('my/custom/key');
+      final publisher = session1.declarePublisher('my/custom/key');
       addTearDown(publisher.close);
 
       await Future<void>.delayed(const Duration(seconds: 1));

@@ -1,8 +1,11 @@
 import 'package:args/args.dart';
 
 /// Parsed common CLI arguments shared by publisher and subscriber.
-typedef CommonArgs =
-    ({String key, List<String> connectEndpoints, List<String> listenEndpoints});
+typedef CommonArgs = ({
+  String key,
+  List<String> connectEndpoints,
+  List<String> listenEndpoints,
+});
 
 /// Parsed publisher CLI arguments (common args plus interval).
 typedef PubArgs = ({

@@ -9,8 +9,8 @@ class SubscriberHandle {
   SubscriberHandle._({
     required Subscriber subscriber,
     required StreamController<int> controller,
-  })  : _subscriber = subscriber,
-        _controller = controller;
+  }) : _subscriber = subscriber,
+       _controller = controller;
 
   final Subscriber _subscriber;
   final StreamController<int> _controller;

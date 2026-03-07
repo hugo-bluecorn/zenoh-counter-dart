@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:zenoh/zenoh.dart';
 
-
 /// Handle returned by [startPublisher] to control the publish loop.
 class PublisherHandle {
   PublisherHandle._({
@@ -13,9 +12,9 @@ class PublisherHandle {
     required Publisher publisher,
     required ShmProvider provider,
     required Timer timer,
-  })  : _publisher = publisher,
-        _provider = provider,
-        _timer = timer;
+  }) : _publisher = publisher,
+       _provider = provider,
+       _timer = timer;
 
   /// The key expression being published on.
   final String key;
@@ -47,31 +46,28 @@ PublisherHandle startPublisher({
   final publisher = session.declarePublisher(key);
   var counter = 0;
 
-  final timer = Timer.periodic(
-    Duration(milliseconds: intervalMs),
-    (_) {
-      final buf = provider.allocGcDefragBlocking(8);
-      if (buf != null) {
-        buf.data.asTypedList(buf.length).buffer.asByteData().setInt64(
-              0,
-              counter,
-              Endian.little,
-            );
-        final zbytes = buf.toBytes();
-        publisher.putBytes(zbytes);
-        counter++;
-      }
-    },
-  );
+  final timer = Timer.periodic(Duration(milliseconds: intervalMs), (_) {
+    final buf = provider.allocGcDefragBlocking(8);
+    if (buf != null) {
+      buf.data
+          .asTypedList(buf.length)
+          .buffer
+          .asByteData()
+          .setInt64(0, counter, Endian.little);
+      final zbytes = buf.toBytes();
+      publisher.putBytes(zbytes);
+      counter++;
+    }
+  });
 
   // Publish the first value immediately (counter 0).
   final buf = provider.allocGcDefragBlocking(8);
   if (buf != null) {
-    buf.data.asTypedList(buf.length).buffer.asByteData().setInt64(
-          0,
-          counter,
-          Endian.little,
-        );
+    buf.data
+        .asTypedList(buf.length)
+        .buffer
+        .asByteData()
+        .setInt64(0, counter, Endian.little);
     final zbytes = buf.toBytes();
     publisher.putBytes(zbytes);
     counter++;

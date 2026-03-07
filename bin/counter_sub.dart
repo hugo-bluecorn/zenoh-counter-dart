@@ -20,10 +20,7 @@ void main(List<String> args) {
 
   final session = Session.open(config: config);
 
-  final handle = startSubscriber(
-    session: session,
-    key: parsed.key,
-  );
+  final handle = startSubscriber(session: session, key: parsed.key);
 
   print('Subscribing on "${parsed.key}"');
 
