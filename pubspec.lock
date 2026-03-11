@@ -414,7 +414,7 @@ packages:
     description:
       path: "packages/zenoh"
       ref: HEAD
-      resolved-ref: "5c5f834f374e567d063a2f58c44197af6530c125"
+      resolved-ref: "96c3b1e8200c7d03bdffcd93d7e88a7637836249"
       url: "https://github.com/hugo-bluecorn/zenoh_dart.git"
     source: git
     version: "0.0.1"
