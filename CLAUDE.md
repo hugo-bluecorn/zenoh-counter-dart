@@ -64,7 +64,7 @@ Two native shared libraries are required at runtime:
 - `libzenoh_dart.so` -- C shim (built from zenoh-dart's `src/`)
 - `libzenohc.so` -- zenoh-c runtime (built from zenoh-dart's `extern/zenoh-c/`)
 
-These are resolved automatically via the upstream package's build hooks (`@Native` annotations + `hook/build.dart`). No `LD_LIBRARY_PATH` is needed.
+These are resolved automatically via the upstream package's build hooks (`hook/build.dart` for distribution, `DynamicLibrary.open()` for loading). No `LD_LIBRARY_PATH` is needed.
 
 ## FVM Requirement
 

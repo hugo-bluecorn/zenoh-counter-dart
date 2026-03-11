@@ -25,8 +25,8 @@ This is the first of three template repos:
 
 | Repo | Purpose | Status |
 |------|---------|--------|
-| **zenoh-counter-dart** (this) | Pure Dart CLI, validates package:zenoh + SHM | 0.1.0 |
-| zenoh-counter-cpp | C++ SHM publisher, validates cross-language interop | Planned |
+| **zenoh-counter-dart** (this) | Pure Dart CLI, validates package:zenoh + SHM | v0.1.1 |
+| [zenoh-counter-cpp](https://github.com/hugo-bluecorn/zenoh-counter-cpp) | C++ SHM publisher, validates cross-language interop | v0.4.0 |
 | zenoh-counter-flutter | Flutter app, validates desktop + Android UI | Planned |
 
 ## Quick Start
