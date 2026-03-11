@@ -66,42 +66,9 @@ flowchart TD
 
 ## Prerequisites
 
-### 1. Build native libraries
+### 1. Install Dart dependencies
 
-Build from the zenoh-dart repo:
-
-```bash
-# Set the zenoh-dart repo location
-export ZENOH_DART_ROOT=/home/hugo-bluecorn/bluecorn/CSR/git/zenoh_dart
-
-# Build zenoh-c (with SHM support)
-cmake -S $ZENOH_DART_ROOT/extern/zenoh-c -B $ZENOH_DART_ROOT/extern/zenoh-c/build -G Ninja \
-  -DCMAKE_C_COMPILER=/usr/bin/clang \
-  -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DBUILD_SHARED_LIBS=TRUE \
-  -DZENOHC_BUILD_IN_SOURCE_TREE=TRUE \
-  -DZENOHC_BUILD_WITH_SHARED_MEMORY=TRUE \
-  -DZENOHC_BUILD_WITH_UNSTABLE_API=TRUE
-RUSTUP_TOOLCHAIN=stable cmake --build $ZENOH_DART_ROOT/extern/zenoh-c/build --config Release
-
-# Build the C shim
-cmake -S $ZENOH_DART_ROOT -B $ZENOH_DART_ROOT/build -G Ninja \
-  -DCMAKE_C_COMPILER=/usr/bin/clang \
-  -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-cmake --build $ZENOH_DART_ROOT/build
-```
-
-### 2. Set environment
-
-Run this in every terminal before using the commands below:
-
-```bash
-export ZENOH_DART_ROOT=/home/hugo-bluecorn/bluecorn/CSR/git/zenoh_dart
-export LD_LIBRARY_PATH=$ZENOH_DART_ROOT/extern/zenoh-c/target/release:$ZENOH_DART_ROOT/build
-```
-
-### 3. Install Dart dependencies
+Native libraries (`libzenoh_dart.so`, `libzenohc.so`) are resolved automatically via the upstream package's build hooks. No manual library setup is needed.
 
 ```bash
 fvm dart pub get
@@ -274,7 +241,7 @@ fvm dart run bin/counter_pub.dart -e tcp/host1:7447 -e tcp/host2:7447
 ## Running Tests
 
 ```bash
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart test
+fvm dart test
 ```
 
 ## Static Analysis

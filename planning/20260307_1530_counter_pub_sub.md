@@ -18,7 +18,7 @@
 - Two-session TCP: one session listens, other connects on unique port
 - Delays: 500ms listener bind, 1s session establishment, 1s routing propagation
 - No FFI mocking -- real zenoh calls through native libraries
-- `LD_LIBRARY_PATH` required for native libraries
+- Native libraries resolved automatically via build hooks
 
 ### Key Decisions
 - Shared codec in `lib/counter_codec.dart` (pure Dart, no zenoh dependency)

@@ -34,18 +34,8 @@ This is the first of three template repos:
 ### Prerequisites
 
 - [FVM](https://fvm.app/) (Dart/Flutter version manager)
-- Native libraries built from [zenoh-dart](https://github.com/hugo-bluecorn/zenoh-dart):
-  - `libzenohc.so` (zenoh-c with SHM support)
-  - `libzenoh_dart.so` (C shim)
 
-See [User Manual](docs/user-manual.md#prerequisites) for full build instructions.
-
-### Set Environment
-
-```bash
-export ZENOH_DART_ROOT=/path/to/zenoh_dart
-export LD_LIBRARY_PATH=$ZENOH_DART_ROOT/extern/zenoh-c/target/release:$ZENOH_DART_ROOT/build
-```
+Native libraries (`libzenoh_dart.so`, `libzenohc.so`) are resolved automatically via the upstream package's build hooks.
 
 ### Install Dependencies
 
@@ -57,12 +47,12 @@ fvm dart pub get
 
 **Terminal 1 -- Subscriber:**
 ```bash
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart run bin/counter_sub.dart -l tcp/127.0.0.1:7447
+fvm dart run bin/counter_sub.dart -l tcp/127.0.0.1:7447
 ```
 
 **Terminal 2 -- Publisher:**
 ```bash
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart run bin/counter_pub.dart -e tcp/127.0.0.1:7447
+fvm dart run bin/counter_pub.dart -e tcp/127.0.0.1:7447
 ```
 
 **Output (subscriber):**
@@ -151,7 +141,7 @@ docs/
 29 tests (18 unit + 11 integration):
 
 ```bash
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart test
+fvm dart test
 ```
 
 Integration tests use real zenoh sessions over TCP (no mocking).

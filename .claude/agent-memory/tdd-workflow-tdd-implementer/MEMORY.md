@@ -3,8 +3,8 @@
 ## Project Setup
 - No `lib/` or `test/` dirs exist initially -- must create them
 - Package name: `zenoh_counter_dart` (import as `package:zenoh_counter_dart/...`)
-- `fvm dart test` and `fvm dart analyze` work without LD_LIBRARY_PATH for pure Dart slices
-- LD_LIBRARY_PATH only needed for slices that use zenoh native libs (Slices 3+)
+- `fvm dart test` and `fvm dart analyze` work for all slices
+- Native libraries resolved automatically via build hooks (no LD_LIBRARY_PATH needed)
 
 ## Testing Patterns
 - Use `package:test/test.dart` with `group()` for organization

@@ -19,9 +19,9 @@ This repo (zenoh-counter-dart) is the first of three, each validating one concer
 
 ## Native Library Distribution Progression
 
-- **Now (this repo)**: Approach A -- manual LD_LIBRARY_PATH
+- **Now (this repo)**: Build hooks -- `@Native` annotations + `hook/build.dart` (migration complete)
 - **After Flutter MVP**: Approach B -- zenoh_flutter plugin package
-- **Long term**: Approach C -- native_assets hook/build.dart
+- **Long term**: Build hooks propagate transitively to all consumers
 
 ## Cross-Repo Interop
 

@@ -60,11 +60,11 @@ The zenoh-dart monorepo at `/home/hugo-bluecorn/bluecorn/CSR/git/zenoh_dart/` is
 
 ### Native Libraries Required
 
-Two native shared libraries must be available at runtime:
+Two native shared libraries are required at runtime:
 - `libzenoh_dart.so` -- C shim (built from zenoh-dart's `src/`)
 - `libzenohc.so` -- zenoh-c runtime (built from zenoh-dart's `extern/zenoh-c/`)
 
-These are NOT bundled in this repo. They must be built from the zenoh-dart repo and made available via `LD_LIBRARY_PATH`.
+These are resolved automatically via the upstream package's build hooks (`@Native` annotations + `hook/build.dart`). No `LD_LIBRARY_PATH` is needed.
 
 ## FVM Requirement
 
@@ -78,42 +78,16 @@ fvm dart test
 
 ## Build & Run
 
-### Prerequisites
-
-Build the native libraries from the zenoh-dart repo:
-
-```bash
-# In the zenoh-dart repo:
-# 1. Build zenoh-c (with SHM support)
-cmake -S extern/zenoh-c -B extern/zenoh-c/build -G Ninja \
-  -DCMAKE_C_COMPILER=/usr/bin/clang \
-  -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DBUILD_SHARED_LIBS=TRUE \
-  -DZENOHC_BUILD_IN_SOURCE_TREE=TRUE \
-  -DZENOHC_BUILD_WITH_SHARED_MEMORY=TRUE \
-  -DZENOHC_BUILD_WITH_UNSTABLE_API=TRUE
-RUSTUP_TOOLCHAIN=stable cmake --build extern/zenoh-c/build --config Release
-
-# 2. Build the C shim
-cmake -S . -B build -G Ninja \
-  -DCMAKE_C_COMPILER=/usr/bin/clang \
-  -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-cmake --build build
-```
-
 ### Running
 
-```bash
-# Set library path (adjust ZENOH_DART_ROOT to your zenoh-dart repo location)
-export ZENOH_DART_ROOT=/home/hugo-bluecorn/bluecorn/CSR/git/zenoh_dart
-export LD_LIBRARY_PATH=$ZENOH_DART_ROOT/extern/zenoh-c/target/release:$ZENOH_DART_ROOT/build
+Native libraries are resolved automatically via build hooks -- no manual setup needed.
 
+```bash
 # Run the subscriber (in one terminal)
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart run bin/counter_sub.dart
+fvm dart run bin/counter_sub.dart
 
 # Run the SHM publisher (in another terminal)
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart run bin/counter_pub.dart
+fvm dart run bin/counter_pub.dart
 ```
 
 ### CLI Flags (mirror zenoh-c conventions)
@@ -129,7 +103,7 @@ Publisher additionally supports:
 ### Testing
 
 ```bash
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart test
+fvm dart test
 ```
 
 ## Architecture
@@ -180,7 +154,7 @@ Role prompts are in `context/roles/`. Each session reads its role doc before sta
 - **KISS/MVP** -- minimal code, no abstractions beyond what's needed
 - **SHM always-on** -- the publisher always uses SHM (that's the point of this template)
 - **No isolates** -- zenoh-dart uses NativePort callbacks, no helper isolates needed
-- **Approach A** -- native libraries via LD_LIBRARY_PATH (manual placement)
+- **Build hooks** -- native libraries resolved automatically via `@Native` annotations
 
 ## Linting
 
@@ -226,7 +200,7 @@ Read it to understand the current state before making changes.
 
 ### Testing Constraints
 
-- Tests require native libraries on `LD_LIBRARY_PATH` (see Build & Run section)
+- Native libraries are resolved automatically via build hooks (no `LD_LIBRARY_PATH` needed)
 - All test commands via `fvm dart test` (bare `dart` NOT on PATH)
 - No mocking of FFI layer -- tests call real zenoh through libzenoh_dart.so
 - Two-session testing: use explicit TCP listen/connect with unique ports per test group

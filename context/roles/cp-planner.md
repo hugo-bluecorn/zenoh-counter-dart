@@ -65,6 +65,6 @@ This is a pure Dart CLI counter app with two programs:
 ## Constraints
 
 - All commands via `fvm dart`
-- Tests need LD_LIBRARY_PATH for native libraries
+- Build hooks resolve native libraries automatically
 - No mocking of FFI layer -- tests call real zenoh through libzenoh_dart.so
 - Two-session testing pattern: explicit TCP listen/connect with unique ports

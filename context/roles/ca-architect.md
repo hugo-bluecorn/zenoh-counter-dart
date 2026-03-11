@@ -24,7 +24,7 @@ with SHM. It is the first of three template repos (Dart CLI, C++, Flutter).
 
 Key dependencies:
 - `package:zenoh` from zenoh-dart monorepo (Phases 0-5 complete, 62 C shim functions)
-- Native libraries: `libzenoh_dart.so` + `libzenohc.so` via LD_LIBRARY_PATH
+- Native libraries: `libzenoh_dart.so` + `libzenohc.so` via build hooks (`@Native`)
 - FVM for all dart commands
 
 The counter publishes int64 via SHM on `demo/counter`. The subscriber

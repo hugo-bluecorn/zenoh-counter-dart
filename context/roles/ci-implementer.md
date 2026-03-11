@@ -79,19 +79,17 @@ Use `package:args` (already in pubspec from template).
 
 ## Build & Test Commands
 
-```bash
-# Set library path
-export ZENOH_DART_ROOT=/home/hugo-bluecorn/bluecorn/CSR/git/zenoh_dart
-export LD_LIBRARY_PATH=$ZENOH_DART_ROOT/extern/zenoh-c/target/release:$ZENOH_DART_ROOT/build
+Native libraries are resolved automatically via build hooks -- no `LD_LIBRARY_PATH` needed.
 
+```bash
 # Run tests
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart test
+fvm dart test
 
 # Run publisher
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart run bin/counter_pub.dart
+fvm dart run bin/counter_pub.dart
 
 # Run subscriber
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH fvm dart run bin/counter_sub.dart
+fvm dart run bin/counter_sub.dart
 
 # Analyze
 fvm dart analyze
@@ -100,7 +98,7 @@ fvm dart analyze
 ## Constraints
 
 - All commands via `fvm dart` (bare `dart` is NOT on PATH)
-- Tests need LD_LIBRARY_PATH for native libraries
+- Build hooks resolve native libraries automatically
 - No mocking of FFI -- real zenoh calls through libzenoh_dart.so
 - Two-session testing: use explicit TCP listen/connect with unique ports per test group
 - `ShmProvider.allocGcDefragBlocking()` returns `ShmMutBuffer?` (nullable -- check for null)
