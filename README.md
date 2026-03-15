@@ -153,4 +153,4 @@ Integration tests use real zenoh sessions over TCP (no mocking).
 
 ## License
 
-MIT
+Apache 2.0 -- see [LICENSE](LICENSE).
