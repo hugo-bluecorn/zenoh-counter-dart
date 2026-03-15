@@ -27,7 +27,7 @@ This is the first of three template repos:
 |------|---------|--------|
 | **zenoh-counter-dart** (this) | Pure Dart CLI, validates package:zenoh + SHM | v0.1.1 |
 | [zenoh-counter-cpp](https://github.com/hugo-bluecorn/zenoh-counter-cpp) | C++ SHM publisher, validates cross-language interop | v0.4.0 |
-| zenoh-counter-flutter | Flutter app, validates desktop + Android UI | Planned |
+| [zenoh-counter-flutter](https://github.com/hugo-bluecorn/zenoh-counter-flutter) | Flutter app, validates desktop + Android UI | v0.7.0 |
 
 ## Quick Start
 
@@ -148,7 +148,7 @@ Integration tests use real zenoh sessions over TCP (no mocking).
 
 ## Dependencies
 
-- [package:zenoh](https://github.com/hugo-bluecorn/zenoh-dart) -- Dart FFI bindings for zenoh-c v1.7.2
+- [package:zenoh](https://github.com/hugo-bluecorn/zenoh_dart) -- Dart FFI bindings for zenoh-c v1.7.2
 - [package:args](https://pub.dev/packages/args) -- CLI argument parsing
 
 ## License
