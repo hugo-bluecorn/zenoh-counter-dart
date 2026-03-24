@@ -12,7 +12,7 @@ dependencies:
   zenoh:
     git:
       url: https://github.com/hugo-bluecorn/zenoh_dart.git
-      path: packages/zenoh
+      path: package
 
 dev_dependencies:
   test: ^1.25.6
